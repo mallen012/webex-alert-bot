@@ -1,0 +1,4 @@
+flask
+requests
+dotenv
+flask-sock

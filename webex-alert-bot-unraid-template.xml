@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<Container>
+  <Name>Webex Alert Bot</Name>
+  <Repository>webex-alert-bot</Repository>
+  <Registry>https://hub.docker.com/r/mallen012/webex-alert-bot</Registry>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Port>
+      <ContainerPort>5650</ContainerPort>
+      <HostPort>5650</HostPort>
+      <Protocol>tcp</Protocol>
+    </Port>
+  </Networking>
+  <Environment>
+    <Variable>
+      <Name>WEBEX_TOKEN</Name>
+      <Value>your_token_here</Value>
+    </Variable>
+    <Variable>
+      <Name>WEBEX_ROOM_ID</Name>
+      <Value>your_room_id_here</Value>
+    </Variable>
+    <Variable>
+      <Name>OPENWEATHER_API_KEY</Name>
+      <Value>your_openweather_api_key</Value>
+    </Variable>
+    <Variable>
+      <Name>MOVIE_API_KEY</Name>
+      <Value>your_movie_api_key</Value>
+    </Variable>
+    <Variable>
+      <Name>TV_API_KEY</Name>
+      <Value>your_tv_api_key</Value>
+    </Variable>
+  </Environment>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/webex-alert-bot/</HostDir>
+      <ContainerDir>/app</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <WebUI>http://[IP]:[PORT:5650]</WebUI>
+  <Support>https://github.com/mallen012/webex-alert-bot</Support>
+  <Description>Webex Alert Bot with REST, WebSocket, and Web UI. Sends messages, jokes, weather, movies, and TV info to your Webex room.</Description>
+  <Category>Tools:Network</Category>
+</Container>

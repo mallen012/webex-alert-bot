@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Webex Alert Bot UI</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; max-width: 600px; }
+    input, textarea { width: 100%; padding: 10px; margin-top: 10px; }
+    button { padding: 10px 20px; margin-top: 10px; }
+    .section { margin-bottom: 30px; }
+  </style>
+</head>
+<body>
+  <h1>Webex Alert Bot</h1>
+
+  <div class="section">
+    <h3>Send Alert</h3>
+    <textarea id="alertText" placeholder="Your alert message..."></textarea>
+    <button onclick="sendAlert()">Send</button>
+    <p id="alertStatus"></p>
+  </div>
+
+  <div class="section">
+    <h3>Update Config</h3>
+    <input type="text" id="token" placeholder="WEBEX_TOKEN" />
+    <input type="text" id="room" placeholder="WEBEX_ROOM_ID" />
+    <button onclick="updateEnv()">Update & Restart</button>
+    <p id="envStatus"></p>
+  </div>
+
+  <script>
+    function sendAlert() {
+      const msg = document.getElementById("alertText").value;
+      fetch("/alert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg })
+      })
+      .then(res => res.json())
+      .then(data => document.getElementById("alertStatus").innerText = data.status || "Alert sent")
+      .catch(err => document.getElementById("alertStatus").innerText = "Error: " + err);
+    }
+
+    function updateEnv() {
+      const token = document.getElementById("token").value;
+      const room = document.getElementById("room").value;
+      fetch("/update-config", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ WEBEX_TOKEN: token, WEBEX_ROOM_ID: room })
+      })
+      .then(res => res.json())
+      .then(data => document.getElementById("envStatus").innerText = data.status || "Updated")
+      .catch(err => document.getElementById("envStatus").innerText = "Error: " + err);
+    }
+  </script>
+</body>
+</html>
